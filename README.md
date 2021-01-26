@@ -6,4 +6,4 @@ Raster patterns are drawn onto a simulated phosphor display from virtual video t
 
 ## Try it out
 **Warning!** This thing might **really** bring your browser down on its knees. Setting the framerate too high might even break it completely (make it crash).
-### [Live demo](https://victorwesterlund.github.io/crtjs-test/)
+### [Live demo](https://github.com/VictorWesterlund/crtjs/deployments/activity_log?environment=github-pages)
