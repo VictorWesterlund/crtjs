@@ -1,34 +1,43 @@
-const worker = new Worker("js/worker.js");
+import { FluorescentScreen } from "./modules/Screen.mjs";
+import { RasterScan } from "./modules/ElectronGun.mjs";
 
-// Electron
-const ray = {
-	electron: document.getElementById("electron"),
-	get size() {
-		const size = getComputedStyle(this.electron).getPropertyValue("--size");
-		return parseInt(size);
-	},
-	set size(value) {
-		this.electron.style.setProperty("--size",value + "px");
-		this.value = value;
+class CRT {
+
+	constructor(element) {
+		this.element = element;
+		this.initScreen();
+		this.raster = new RasterScan(this.screen.pixels);
 	}
+
+	async fetchJSON(url) {
+		const response = await fetch(url);
+		return response.json();
+	}
+
+	loadTape(ref) {
+		this.fetchJSON(ref + "/header.json").then(headers => {
+			// Reinitialize player with resolution from tape header
+			if(headers.resolution[0] !== this.element.clientWidth || headers.resolution[1] !== this.element.clientHeight) {
+				this.element.style.setProperty("width",headers.resolution[0] + "px");
+				this.element.style.setProperty("height",headers.resolution[1] + "px");
+				this.initScreen();
+				this.raster.pixels = this.screen.pixels;
+			}
+
+			this.raster.load(headers);
+		});
+	}
+
+	play() {
+		this.raster.playstate("play");
+	}
+
+	initScreen() {
+		this.screen = new FluorescentScreen(this.element);
+	}
+
 }
 
-ray.size = 50;
-
-// Screen resolution
-const resolution = {
-	width: 4,
-	height: 5
-};
-
-// Aim electron gun at pixel
-function aim(x,y) {
-	const translate = `${x * ray.size}px,${y * ray.size}px`;
-	ray.electron.style.setProperty("transform",`translate(${translate})`);
-}
-
-// Clock
-worker.postMessage(resolution);
-worker.addEventListener("message",event => {
-	aim(event.data.x,event.data.y);
-});
+window.video = new CRT(document.getElementById("screen"));
+window.video.loadTape("tapes/sample");
+window.video.play();

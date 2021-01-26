@@ -4,10 +4,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Cathode Ray</title>
+	<title>CRT</title>
+	<style>
+		:root {
+			/* Screen */
+			--resolution-width: 64;
+			--resolution-height: 64;
+			--scale: 8;
+
+			/* Phosphor */
+			--contrast: 128;
+			--decay: 2s;
+		}
+	</style>
 </head>
 <body>
-	<div id="electron"></div>
-	<script src="js/main.js"></script>
+	<div id="screen"></div>
+	<script src="js/main.js" type="module"></script>
 </body>
 </html>
