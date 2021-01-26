@@ -1,0 +1,5 @@
+{
+	"format": "signed-hex",
+	"resolution": ["64","64"],
+	"framerate": 10
+}

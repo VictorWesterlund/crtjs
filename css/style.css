@@ -1,43 +1,32 @@
 html,
 body {
-	--size: 50px;
 	margin: 0;
-	overflow: hidden;
-	background: gray;
-}
-
-html {
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: #eee;
 }
 
-body {
-	--resolution: 200px;
-	width: calc(var(--size) * 4);
-	height: calc(var(--size) * 5);
+#screen {
+	--blank-level: rgb(0,0,0);
+	--line-level: rgb(var(--contrast),var(--contrast),var(--contrast));
+
+	width: calc(1px * var(--resolution-width));
+	height: calc(1px * var(--resolution-height));
+	transform: scale(var(--scale));
 	background: black;
+	display: grid;
 }
 
-#electron {
-	position: absolute;
-	width: var(--size);
-	height: var(--size);
-	background: red;
-	/*animation: interpolate 1ms linear infinite;*/
+.pixel {
+	width: 1px;
+	height: 1px;
+	background: var(--blank-level);
 }
 
-@keyframes interpolate {
+@keyframes decay {
 	to {
-		box-shadow: 
-			0 -20px 0 red, 0 20px 0 red, /* y 1 */
-			0 -40px 0 red, 0 40px 0 red, /* y 2 */
-			0 -80px 0 red, 0 80px 0 red, /* y 3 */
-			0 -100px 0 red, 0 100px 0 red, /* y 4 */
-			-20px 0 0 red, 20px 0 0 red, /* x 1 */
-			-40px 0 0 red, 40px 0 0 red, /* x 2 */
-			-80px 0 0 red, 80px 0 0 red, /* x 3*/
-			-100px 0 0 red, 100px 0 0 red; /* x 4 */
+		background: var(--blank-level);
 	}
 }
