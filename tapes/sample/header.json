@@ -1,5 +1,9 @@
 {
+	"manifest": "sample",
 	"format": "signed-hex",
-	"resolution": ["64","64"],
-	"framerate": 10
+	"resolution": ["32","32"],
+	"framerate": 100,
+	"segments": [
+		"data.json"
+	]
 }

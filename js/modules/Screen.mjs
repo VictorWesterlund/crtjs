@@ -4,6 +4,7 @@ export class FluorescentScreen {
 		this.screen = screen;
 		this.pixels = [];
 		
+		this.destroyPixels();
 		this.spawnPixels();
 	}
 
@@ -24,6 +25,12 @@ export class FluorescentScreen {
 		}
 
 		this.createMatrix();
+	}
+
+	destroyPixels() {
+		while(this.screen.firstChild) {
+			this.screen.removeChild(this.screen.lastChild);
+		}
 	}
 
 }
